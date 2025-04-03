@@ -7,11 +7,11 @@ st.title("Chatbot with Ranger API")
 USER_AVATAR = "👤"
 BOT_AVATAR = "🤖"
 
-openapi_key = st.sidebar.text_input("Enter Your Open API Key", type="password",placeholder="sk-j*****************************")
+openapi_key = st.sidebar.text_input("Enter Your Open API Key", type="password",placeholder="sk-j*****************************") 
 if len(openapi_key) < 1:
     st.sidebar.markdown(f"<div style='background-color:white; color: red; font-size: 15px; padding:0px; margin-top: -10px; margin-bottom: 20px; border-radius: 10px;'>*OpenAi API key is required</div>", unsafe_allow_html=True)
 
-username = st.sidebar.text_input("Ranger Username", type="default",value="admin",)
+username = st.sidebar.text_input("Ranger Username", type="default",value="admin") 
 if len(username) < 1:
     st.sidebar.markdown(f"<div style='background-color:white; color: red; font-size: 15px; padding:0px; margin-top: -10px; margin-bottom: 20px; border-radius: 10px;'>*Username is required</div>", unsafe_allow_html=True)
 
