@@ -35,17 +35,17 @@ Below is the **architecture diagram** of the Ranger API project:
 
 ```mermaid
 graph TD;
-    User-->Streamlit Chatbot;
-    Streamlit Chatbot-->Agentic AI;
-    Agentic AI-->|API Call|Ranger API;
-    Ranger API-->|Response|Agentic AI;
-    Agentic AI-->Streamlit Chatbot;
-    Streamlit Chatbot-->User;
+    User -->|Interacts| Streamlit_Chatbot;
+    Streamlit_Chatbot -->|Sends Query| Agentic_AI;
+    Agentic_AI -->|Calls API| Ranger_API;
+    Ranger_API -->|Returns Data| Agentic_AI;
+    Agentic_AI -->|Sends Response| Streamlit_Chatbot;
+    Streamlit_Chatbot -->|Displays Result| User;
     
-    subgraph Cloudera Ranger
-    Ranger API-->Policy Management;
-    Ranger API-->User Management;
-    Ranger API-->Audit Logs;
+    subgraph Cloudera_Ranger
+        Ranger_API -->|Manages| Policy_Management;
+        Ranger_API -->|Manages| User_Management;
+        Ranger_API -->|Tracks| Audit_Logs;
     end
 ```
 
