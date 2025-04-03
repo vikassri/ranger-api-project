@@ -1,5 +1,5 @@
 import requests
-import json, urllib3, os,sys
+import json, urllib3, os
 from config_tools import tools, base_url,user_url , columns_dict 
 
 urllib3.disable_warnings()
