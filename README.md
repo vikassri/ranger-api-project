@@ -61,13 +61,10 @@ graph TD;
    pip install -r requirements.txt
    ```
 
-3. **Set Up Environment Variables**
-   ```bash
-   export RANGER_API_URL="https://your-ranger-url:6080"
-   export RANGER_API_USER="admin"
-   export RANGER_API_PASSWORD="your_password"
-   export OPENAI_API_KEY="your_openai_key"
-   ```
+3. **Set Up Input Variables**
+
+<img width="317" alt="image" src="https://github.com/user-attachments/assets/a3e35842-fede-49ee-985a-f05370081961" />
+
 
 4. **Run the Streamlit Chatbot**
    ```bash
