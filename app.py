@@ -19,9 +19,14 @@ password = st.sidebar.text_input("Ranger Password", type="password",placeholder=
 if len(password) < 1:
     st.sidebar.markdown(f"<div style='background-color:white; color: red; font-size: 15px; padding:0px; margin-top: -10px; margin-bottom: 20px; border-radius: 10px;'>*Password is required</div>", unsafe_allow_html=True)
 
+ranger_host = st.sidebar.text_input("Ranger Host with Port", type="default",placeholder="https://ccycloud.cdpy.root.comops.site:6182")
+if len(password) < 1:
+    st.sidebar.markdown(f"<div style='background-color:white; color: red; font-size: 15px; padding:0px; margin-top: -10px; margin-bottom: 20px; border-radius: 10px;'>*Url is required</div>", unsafe_allow_html=True)
+
+
 with st.form(key="my_form",clear_on_submit=True):
     text = st.text_area("Enter your text here",placeholder="How Can I Help You!")
     st.info(text)
     if st.form_submit_button("Submit"):
-        result = connector(openapi_key,username, password,text)
+        result = connector(openapi_key,username, password, ranger_host, text)
         st.markdown(f"<div style='background-color:#D4F1F4; padding:10px; margin-bottom: 20px; border-radius: 10px;'>{result}</div>", unsafe_allow_html=True)

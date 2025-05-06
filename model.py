@@ -2,7 +2,7 @@ from openai import OpenAI
 from openai.types.chat.chat_completion import ChatCompletionMessage, ChatCompletion   
 from functions import *
 
-def connector(key, user, password, prompt):
+def connector(key, user, password, ranger_host, prompt):
     """
     Get Api key and prompt
     """
@@ -12,6 +12,7 @@ def connector(key, user, password, prompt):
     client = OpenAI(api_key=key)
     os.environ["user"] = user
     os.environ["pass"] = password
+    os.environ["host"] = ranger_host
     def run_conversation(main_request: str, tools) -> str:
         """
         Step 1: send the conversation and available functions to the model
@@ -21,7 +22,7 @@ def connector(key, user, password, prompt):
 
         # First Request
         response: ChatCompletion = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-4o",
             messages=messages,
             tools=tools,
             tool_choice="auto",  # auto is default, but we'll be explicit
@@ -62,7 +63,7 @@ def connector(key, user, password, prompt):
 
             print("* Second Request Messages: ", list(messages))
             second_response: ChatCompletion = client.chat.completions.create(
-                model="gpt-4o-mini",
+                model="gpt-4o",
                 messages=messages,
             )  # get a new response from the model where it can see the function response
             print("* Second Response: ", dict(second_response))

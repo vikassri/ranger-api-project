@@ -1,10 +1,11 @@
 import requests
 import json, urllib3, os
-from config_tools import tools, base_url,user_url , columns_dict 
+from config_tools import tools, base_url,user_url , columns_dict , policy_url
 
 urllib3.disable_warnings()
 def is_host_available(url, timeout=3):
     try:
+        print(url)
         response = requests.head(url, timeout=timeout, verify=False)
         if response.status_code < 500:
             return True
@@ -14,6 +15,8 @@ def is_host_available(url, timeout=3):
 def api_request(method, url, **kwargs):
     USERNAME=os.environ["user"]
     PASSWORD=os.environ["pass"]
+    RANGER_HOST=os.environ["host"]
+    url = f"{RANGER_HOST}{url}"
     if is_host_available(url):
         auth = (USERNAME, PASSWORD)
         try:
@@ -35,6 +38,21 @@ def get_policy_by_id(id=None):
     
     return json.dumps({"error": "Cluster is busy, please try again"}, indent=4)
 
+def get_policy_by_user(user=None):
+    """Fetch policies from Apache Ranger API and return in JSON format."""
+    if user is not None:
+        user = user.lower()
+    url = f"{policy_url}?user={user}"
+    response = api_request("get",url)
+    if response.status_code == 200:
+        policies = response.json()
+        if not policies:
+            return json.dumps({"message": "No relevant policies found."}, indent=4)
+        return json.dumps(policies, indent=4)
+    
+    return json.dumps({"error": "Cluster is busy, please try again"}, indent=4)
+
+
 def delete_policy_by_id(id):
     """Delete a specific policy by id and return response in JSON format."""
     url = f"{base_url}/{id}"
@@ -46,6 +64,7 @@ def delete_policy_by_id(id):
 
 def get_users(user):
     """Fetch users from Apache Ranger API and return in JSON format."""
+    user = user.lower()
     url = f"{user_url}/{user}"
     response = api_request("get",url)
     if response.status_code == 200:
@@ -103,4 +122,5 @@ functions  = {
                 "get_users": get_users,
                 "delete_users": delete_users,
                 "create_hive_policy": create_hive_policy,
+                "get_policy_by_user": get_policy_by_user,
 }

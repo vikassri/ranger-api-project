@@ -1,8 +1,12 @@
-base_url = "https://ccycloud.cdpy.root.comops.site:6182/service/public/v2/api/policy"
-user_url = "https://ccycloud.cdpy.root.comops.site:6182/service/xusers/users/userName"
+import os
+
+base_url = "/service/public/v2/api/policy"
+user_url = "/service/xusers/users/userName"
+policy_url = "/service/plugins/policies"
 
 columns_dict = {
     "get_policy_by_id": "id",
+    "get_policy_by_user": "user",
     "delete_policy_by_id":"id",
     "get_users": "user",
     "delete_users":"user",
@@ -28,6 +32,22 @@ tools = [ {
             {
                 "type": "function",
                 "function": {
+                    "name": "get_policy_by_user",
+                    "description": "Get the all policies of the user",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "user": {
+                                "type": "string",
+                                "description": "name of the user, e.g vikas",
+                            }},
+                        "Required": ["user"],
+                    },
+                },
+            },
+            {
+                "type": "function",
+                "function": {
                     "name": "delete_policy_by_id",
                     "description": "Delete the policy by id",
                     "parameters": {
@@ -45,7 +65,7 @@ tools = [ {
                 "type": "function",
                 "function": {
                     "name": "get_users",
-                    "description": "Get the price by its name",
+                    "description": "Get the user by its name",
                     "parameters": {
                         "type": "object",
                         "properties": {
